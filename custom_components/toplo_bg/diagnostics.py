@@ -15,6 +15,7 @@ _DIAGNOSTIC_FIELDS = (
     "isSuccessStatusCode",
     "errors",
     "error",
+    "Error",
     "title",
     "detail",
     "message",

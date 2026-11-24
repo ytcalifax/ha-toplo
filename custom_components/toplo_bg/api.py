@@ -185,13 +185,28 @@ class ToploApi:
                 )
                 raise ConfigEntryNotReady("Toplo.bg returned an installation without an ID")
 
+            installation_number = installation.get("number")
+            if (
+                isinstance(installation_number, bool)
+                or not isinstance(installation_number, (int, str))
+                or not str(installation_number).isdigit()
+            ):
+                log_invalid_shape(
+                    "installations/getbyuserid",
+                    "installation object with numeric number",
+                    installation,
+                )
+                raise ConfigEntryNotReady(
+                    "Toplo.bg returned an installation without a valid number"
+                )
+
             installation_params = {"installationId": installation_id, **date_params}
             invoices_response = self._object(
                 await self._request(
                     "invoices/getAll",
                     params={
-                        "installationIds": installation_id,
-                        "invoicePeriodFilter": 24,
+                        "installationIds": installation_number,
+                        "invoicePeriodFilter": 36,
                     },
                 ),
                 "invoices/getAll",
