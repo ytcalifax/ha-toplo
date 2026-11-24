@@ -37,7 +37,7 @@ SENSORS = (
         translation_key="heating",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=UnitOfEnergy.GIGA_CALORIE,
+        native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:radiator",
     ),
     SensorEntityDescription(
@@ -45,7 +45,7 @@ SENSORS = (
         translation_key="hot_water",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=UnitOfEnergy.GIGA_CALORIE,
+        native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:water-thermometer",
     ),
     SensorEntityDescription(
@@ -53,7 +53,7 @@ SENSORS = (
         translation_key="station_heating",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
+        native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:radiator",
     ),
     SensorEntityDescription(
@@ -61,7 +61,7 @@ SENSORS = (
         translation_key="station_hot_water",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
+        native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:water-thermometer",
     ),
     SensorEntityDescription(
@@ -69,7 +69,7 @@ SENSORS = (
         translation_key="aligning_heating",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=UnitOfEnergy.GIGA_CALORIE,
+        native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:scale-balance",
     ),
     SensorEntityDescription(
@@ -77,7 +77,7 @@ SENSORS = (
         translation_key="aligning_hot_water",
         device_class=SensorDeviceClass.ENERGY,
         state_class=SensorStateClass.MEASUREMENT,
-        native_unit_of_measurement=UnitOfEnergy.GIGA_CALORIE,
+        native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:scale-balance",
     ),
 )

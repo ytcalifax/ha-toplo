@@ -48,12 +48,12 @@ Each installation creates these sensors:
 |---|---|---|
 | Latest invoice total | EUR | Most recent invoice total; invoice records in attributes |
 | Invoice due | EUR | Outstanding amount on the most recent invoice |
-| Heating consumption | Gcal | Latest monthly reading; monthly history in attributes |
-| Hot water consumption | Gcal | Latest monthly reading; monthly history in attributes |
-| Station heating consumption | kWh | Latest station reading; station history in attributes |
-| Station hot water consumption | kWh | Latest station reading; station history in attributes |
-| Annual aligned heating | Gcal | Sum of annual final heating amounts; alignment records in attributes |
-| Annual aligned hot water | Gcal | Sum of annual final hot water amounts; alignment records in attributes |
+| Heating consumption | MWh | Latest monthly reading; monthly history in attributes |
+| Hot water consumption | MWh | Latest monthly reading; monthly history in attributes |
+| Station heating consumption | MWh | Latest station reading; station history in attributes |
+| Station hot water consumption | MWh | Latest station reading; station history in attributes |
+| Annual aligned heating | MWh | Sum of annual final heating amounts; alignment records in attributes |
+| Annual aligned hot water | MWh | Sum of annual final hot water amounts; alignment records in attributes |
 
 A separate account sensor exposes the profile fields returned by Toplo.bg. When an installation is removed from the account, its existing entities become unavailable. Toplo.bg data is cloud-provided, so Home Assistant needs internet access to update it.
 
