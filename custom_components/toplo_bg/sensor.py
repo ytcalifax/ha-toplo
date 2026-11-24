@@ -1,5 +1,7 @@
 """Sensors for Toplo.bg installations."""
 
+from dataclasses import replace
+
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
@@ -9,6 +11,7 @@ from homeassistant.const import UnitOfEnergy
 from homeassistant.core import HomeAssistant, callback
 from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
+from homeassistant.helpers.translation import async_get_translations
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
     DataUpdateCoordinator,
@@ -21,6 +24,7 @@ SENSORS = (
     SensorEntityDescription(
         key="latest_invoice",
         translation_key="latest_invoice",
+        name="Heating Invoice Total (Month)",
         device_class=SensorDeviceClass.MONETARY,
         native_unit_of_measurement="EUR",
         icon="mdi:file-document-outline",
@@ -28,6 +32,7 @@ SENSORS = (
     SensorEntityDescription(
         key="invoice_due",
         translation_key="invoice_due",
+        name="Heating Invoice Due (Month)",
         device_class=SensorDeviceClass.MONETARY,
         native_unit_of_measurement="EUR",
         icon="mdi:cash-clock",
@@ -35,6 +40,7 @@ SENSORS = (
     SensorEntityDescription(
         key="heating",
         translation_key="heating",
+        name="Heating Consumption (Month)",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:radiator",
@@ -42,6 +48,7 @@ SENSORS = (
     SensorEntityDescription(
         key="hot_water",
         translation_key="hot_water",
+        name="Hot Water Consumption (Month)",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:water-thermometer",
@@ -49,6 +56,7 @@ SENSORS = (
     SensorEntityDescription(
         key="station_heating",
         translation_key="station_heating",
+        name="Station Heating Consumption (Month)",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:radiator",
@@ -56,6 +64,7 @@ SENSORS = (
     SensorEntityDescription(
         key="station_hot_water",
         translation_key="station_hot_water",
+        name="Station Hot Water Consumption (Month)",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:water-thermometer",
@@ -63,6 +72,7 @@ SENSORS = (
     SensorEntityDescription(
         key="aligning_heating",
         translation_key="aligning_heating",
+        name="Heating Annual Alignment (Year)",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:scale-balance",
@@ -70,6 +80,7 @@ SENSORS = (
     SensorEntityDescription(
         key="aligning_hot_water",
         translation_key="aligning_hot_water",
+        name="Hot Water Annual Alignment (Year)",
         device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:scale-balance",
@@ -81,6 +92,20 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ToploConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Add entities for current and newly discovered installations."""
+    translations = await async_get_translations(
+        hass, hass.config.language, "entity", {DOMAIN}
+    )
+    descriptions = tuple(
+        replace(
+            description,
+            name=translations.get(
+                f"component.{DOMAIN}.entity.sensor.{description.translation_key}.name",
+                description.name,
+            ),
+        )
+        for description in SENSORS
+    )
+
     registry = er.async_get(hass)
     account_entity_id = registry.async_get_entity_id(
         "sensor", DOMAIN, f"{entry.entry_id}_account"
@@ -101,7 +126,7 @@ async def async_setup_entry(
             known_ids.add(installation_id)
             new_entities.extend(
                 ToploSensor(coordinator, entry, installation_id, description)
-                for description in SENSORS
+                for description in descriptions
             )
         if new_entities:
             async_add_entities(new_entities)
@@ -113,7 +138,7 @@ async def async_setup_entry(
 class ToploSensor(CoordinatorEntity, SensorEntity):
     """Represent one value for a Toplo.bg installation."""
 
-    _attr_has_entity_name = True
+    _attr_has_entity_name = False
     entity_description: SensorEntityDescription
 
     def __init__(

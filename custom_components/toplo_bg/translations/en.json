@@ -30,14 +30,14 @@
   },
   "entity": {
     "sensor": {
-      "latest_invoice": {"name": "Latest invoice total"},
-      "invoice_due": {"name": "Invoice due"},
-      "heating": {"name": "Heating consumption"},
-      "hot_water": {"name": "Hot water consumption"},
-      "station_heating": {"name": "Station heating consumption"},
-      "station_hot_water": {"name": "Station hot water consumption"},
-      "aligning_heating": {"name": "Annual aligned heating"},
-      "aligning_hot_water": {"name": "Annual aligned hot water"}
+      "latest_invoice": {"name": "Heating Invoice Total (Month)"},
+      "invoice_due": {"name": "Heating Invoice Due (Month)"},
+      "heating": {"name": "Heating Consumption (Month)"},
+      "hot_water": {"name": "Hot Water Consumption (Month)"},
+      "station_heating": {"name": "Station Heating Consumption (Month)"},
+      "station_hot_water": {"name": "Station Hot Water Consumption (Month)"},
+      "aligning_heating": {"name": "Heating Annual Alignment (Year)"},
+      "aligning_hot_water": {"name": "Hot Water Annual Alignment (Year)"}
     }
   }
 }

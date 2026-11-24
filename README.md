@@ -46,14 +46,14 @@ Each installation creates these sensors:
 
 | Sensor | Unit | Data |
 |---|---|---|
-| Latest invoice total | EUR | Most recent invoice total; invoice records in attributes |
-| Invoice due | EUR | Outstanding amount on the most recent invoice |
-| Heating consumption | MWh | Latest monthly reading; monthly history in attributes |
-| Hot water consumption | MWh | Latest monthly reading; monthly history in attributes |
-| Station heating consumption | MWh | Latest station reading; station history in attributes |
-| Station hot water consumption | MWh | Latest station reading; station history in attributes |
-| Annual aligned heating | MWh | Sum of annual final heating amounts; alignment records in attributes |
-| Annual aligned hot water | MWh | Sum of annual final hot water amounts; alignment records in attributes |
+| Heating Invoice Total (Month) | EUR | Most recent invoice total; invoice records in attributes |
+| Heating Invoice Due (Month) | EUR | Outstanding amount on the most recent invoice |
+| Heating Consumption (Month) | MWh | Latest monthly reading; monthly history in attributes |
+| Hot Water Consumption (Month) | MWh | Latest monthly reading; monthly history in attributes |
+| Station Heating Consumption (Month) | MWh | Latest station reading; station history in attributes |
+| Station Hot Water Consumption (Month) | MWh | Latest station reading; station history in attributes |
+| Heating Annual Alignment (Year) | MWh | Sum of annual final heating amounts; alignment records in attributes |
+| Hot Water Annual Alignment (Year) | MWh | Sum of annual final hot water amounts; alignment records in attributes |
 
 When an installation is removed from the account, its existing entities become unavailable. Toplo.bg data is cloud-provided, so Home Assistant needs internet access to update it.
 
