@@ -2,7 +2,7 @@
 
 > **Monitor your Toplo.bg account, invoices, and district heating use from Home Assistant.**
 
-Toplo.bg brings account and installation data into Home Assistant. Track recent invoices, monthly heating and hot water consumption, station readings, and annual alignment figures. Sign in through the integration setup form; no credentials belong in YAML or source files.
+Toplo.bg brings installation and billing data into Home Assistant. Track recent invoices, monthly heating and hot water consumption, station readings, and annual alignment figures. Sign in through the integration setup form; no credentials belong in YAML or source files.
 
 ## ✨ Features
 
@@ -10,7 +10,7 @@ Toplo.bg brings account and installation data into Home Assistant. Track recent 
 - **♨️ Heating and hot water**: Track the latest monthly consumption and view the returned monthly records.
 - **🏢 Station readings**: Monitor heating and hot water use reported for the building's station.
 - **📊 Annual alignment**: See annual final heating and hot water amounts with the API's alignment periods.
-- **👤 Account and locations**: View your Toplo.bg profile and one Home Assistant device per installation.
+- **🏢 Locations**: View one Home Assistant device per Toplo.bg installation.
 - **✏️ Owner name override**: Set a custom owner label during setup when the account holder differs from the location owner.
 - **🔄 Automatic updates**: Refresh data hourly and add entities when new installations appear.
 - **🇧🇬 Bulgarian and English**: The setup flow and sensor names follow the selected Home Assistant language.
@@ -55,11 +55,11 @@ Each installation creates these sensors:
 | Annual aligned heating | MWh | Sum of annual final heating amounts; alignment records in attributes |
 | Annual aligned hot water | MWh | Sum of annual final hot water amounts; alignment records in attributes |
 
-A separate account sensor exposes the profile fields returned by Toplo.bg. When an installation is removed from the account, its existing entities become unavailable. Toplo.bg data is cloud-provided, so Home Assistant needs internet access to update it.
+When an installation is removed from the account, its existing entities become unavailable. Toplo.bg data is cloud-provided, so Home Assistant needs internet access to update it.
 
 ## 🧰 Data and privacy
 
-The integration calls Toplo.bg's login, profile, installations, invoices, monthly consumption, station consumption, and annual alignment endpoints. Updates run hourly. Profile details, including contact information returned by the API, are available on the account sensor; installation and billing details are available on their related sensors. Data stays in Home Assistant's recorder according to your recorder settings.
+The integration calls Toplo.bg's login, profile, installations, invoices, monthly consumption, station consumption, and annual alignment endpoints. Updates run hourly. Profile data is used internally to discover installations and is not exposed as a sensor. Installation and billing details are available on their related sensors. Data stays in Home Assistant's recorder according to your recorder settings.
 
 This is a community integration and is not affiliated with Toplo.bg or Home Assistant.
 

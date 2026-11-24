@@ -30,7 +30,6 @@
   },
   "entity": {
     "sensor": {
-      "account": {"name": "Account"},
       "latest_invoice": {"name": "Latest invoice total"},
       "invoice_due": {"name": "Invoice due"},
       "heating": {"name": "Heating consumption"},

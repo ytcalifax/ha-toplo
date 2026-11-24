@@ -30,7 +30,6 @@
   },
   "entity": {
     "sensor": {
-      "account": {"name": "Акаунт"},
       "latest_invoice": {"name": "Обща сума по последната фактура"},
       "invoice_due": {"name": "Дължима сума по фактура"},
       "heating": {"name": "Потребление за отопление"},

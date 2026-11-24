@@ -4,10 +4,10 @@ from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,
     SensorEntityDescription,
-    SensorStateClass,
 )
 from homeassistant.const import UnitOfEnergy
 from homeassistant.core import HomeAssistant, callback
+from homeassistant.helpers import entity_registry as er
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import (
     CoordinatorEntity,
@@ -15,7 +15,7 @@ from homeassistant.helpers.update_coordinator import (
 )
 
 from . import ToploConfigEntry
-from .const import CONF_OWNER
+from .const import CONF_OWNER, DOMAIN
 
 SENSORS = (
     SensorEntityDescription(
@@ -36,7 +36,6 @@ SENSORS = (
         key="heating",
         translation_key="heating",
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:radiator",
     ),
@@ -44,7 +43,6 @@ SENSORS = (
         key="hot_water",
         translation_key="hot_water",
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:water-thermometer",
     ),
@@ -52,7 +50,6 @@ SENSORS = (
         key="station_heating",
         translation_key="station_heating",
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:radiator",
     ),
@@ -60,7 +57,6 @@ SENSORS = (
         key="station_hot_water",
         translation_key="station_hot_water",
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:water-thermometer",
     ),
@@ -68,7 +64,6 @@ SENSORS = (
         key="aligning_heating",
         translation_key="aligning_heating",
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:scale-balance",
     ),
@@ -76,7 +71,6 @@ SENSORS = (
         key="aligning_hot_water",
         translation_key="aligning_hot_water",
         device_class=SensorDeviceClass.ENERGY,
-        state_class=SensorStateClass.MEASUREMENT,
         native_unit_of_measurement=UnitOfEnergy.MEGA_WATT_HOUR,
         icon="mdi:scale-balance",
     ),
@@ -87,6 +81,13 @@ async def async_setup_entry(
     hass: HomeAssistant, entry: ToploConfigEntry, async_add_entities: AddEntitiesCallback
 ) -> None:
     """Add entities for current and newly discovered installations."""
+    registry = er.async_get(hass)
+    account_entity_id = registry.async_get_entity_id(
+        "sensor", DOMAIN, f"{entry.entry_id}_account"
+    )
+    if account_entity_id is not None:
+        registry.async_remove(account_entity_id)
+
     coordinator = entry.runtime_data
     known_ids: set[str] = set()
 
@@ -106,35 +107,7 @@ async def async_setup_entry(
             async_add_entities(new_entities)
 
     add_installations()
-    async_add_entities([ToploAccountSensor(coordinator, entry)])
     entry.async_on_unload(coordinator.async_add_listener(add_installations))
-
-
-class ToploAccountSensor(CoordinatorEntity, SensorEntity):
-    """Expose the Toplo.bg profile once, separately from installation sensors."""
-
-    _attr_has_entity_name = True
-    _attr_translation_key = "account"
-    _attr_icon = "mdi:account"
-
-    def __init__(self, coordinator: DataUpdateCoordinator, entry: ToploConfigEntry) -> None:
-        super().__init__(coordinator)
-        self._attr_unique_id = f"{entry.entry_id}_account"
-        self._attr_device_info = {
-            "identifiers": {("toplo_bg", f"account_{entry.entry_id}")},
-            "name": "Toplo.bg account",
-            "manufacturer": "Toplo.bg",
-        }
-
-    @property
-    def native_value(self):
-        """Return the account profile name."""
-        return self.coordinator.data["profile"].get("name")
-
-    @property
-    def extra_state_attributes(self) -> dict:
-        """Return profile details available from the API."""
-        return self.coordinator.data["profile"]
 
 
 class ToploSensor(CoordinatorEntity, SensorEntity):
