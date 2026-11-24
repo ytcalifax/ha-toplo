@@ -1,0 +1,12 @@
+{
+  "domain": "toplo_bg",
+  "name": "Toplo.bg",
+  "codeowners": ["@ytcalifax"],
+  "config_flow": true,
+  "documentation": "https://github.com/ytcalifax/ha-toplo#readme",
+  "issue_tracker": "https://github.com/ytcalifax/ha-toplo/issues",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "requirements": [],
+  "version": "1.0.0"
+}

@@ -1,0 +1,44 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Toplo.bg",
+        "description": "Sign in to load your Toplo.bg account and installations. The location owner override changes the displayed installation owner.",
+        "data": {
+          "email": "Email",
+          "password": "Password",
+          "owner": "Location owner override"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Reauthenticate Toplo.bg",
+        "description": "Enter current Toplo.bg credentials for {name}.",
+        "data": {
+          "email": "Email",
+          "password": "Password",
+          "owner": "Location owner override"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid Toplo.bg email or password.",
+      "cannot_connect": "Unable to log in or load the Toplo.bg profile. Check credentials and connectivity."
+    },
+    "abort": {
+      "already_configured": "This Toplo.bg account is already configured."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "account": {"name": "Account"},
+      "latest_invoice": {"name": "Latest invoice total"},
+      "invoice_due": {"name": "Invoice due"},
+      "heating": {"name": "Heating consumption"},
+      "hot_water": {"name": "Hot water consumption"},
+      "station_heating": {"name": "Station heating consumption"},
+      "station_hot_water": {"name": "Station hot water consumption"},
+      "aligning_heating": {"name": "Annual aligned heating"},
+      "aligning_hot_water": {"name": "Annual aligned hot water"}
+    }
+  }
+}
