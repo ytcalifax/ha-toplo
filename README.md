@@ -66,5 +66,6 @@ This is a community integration and is not affiliated with Toplo.bg or Home Assi
 ## 🛠️ Troubleshooting
 
 - **Invalid credentials**: Complete the reauthentication form from **Settings → Devices & services**.
+- **API request failed**: Check **Settings → System → Logs** for the `Toplo.bg API request failed` entry. It includes the endpoint, HTTP status or exception type, redacted query parameters, and bounded API error details. Credentials and full response bodies are not logged.
 - **Entities unavailable**: Check Home Assistant's internet access and the integration logs. Temporary API failures recover on a later update.
 - **No installation entities**: Confirm that the Toplo.bg account has at least one active installation.
